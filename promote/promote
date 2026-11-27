@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E2F2MQGRBT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-E2F2MQGRBT');
+</script>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="史学科×謎解き｜mysterytour">
+<meta property="og:description" content="日本大学文理学部史学科　特別企画">
+<meta property="og:url" content="https://shigaku-bunri-nichidai.github.io/OCmysterytour/promote/promote.html">
+<meta property="og:image" content="https://shigaku-bunri-nichidai.github.io/OCmysterytour/promote/title2.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="史学科×謎解き｜secret tour">
+<meta name="twitter:description" content="日本大学文理学部　史学科　特別企画">
+<meta name="twitter:image" content="https://shigaku-bunri-nichidai.github.io/OCmysterytour/promote/title2.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>史学科×謎解き｜secret tour</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Special+Elite&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0908;
+    --void-2:#141210;
+    --parchment:#ede6d3;
+    --parchment-dim:#cfc7ae;
+    --blood:#7a1420;
+    --blood-bright:#a51d2b;
+    --tape:#e3c23c;
+    --ash:#4a453e;
+    --line:rgba(237,230,211,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--parchment);
+    font-family:"Noto Sans JP",sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body.locked{ overflow:hidden; height:100vh; }
+  ::selection{background:var(--blood); color:var(--parchment);}
+
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:50;
+    opacity:0.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .stage{
+    position:relative;
+    height:100svh;
+    width:100%;
+    overflow:hidden;
+    background:#000;
+  }
+  .frame{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .frame img{
+    height:100%; width:100%;
+    object-fit:cover;
+    object-position:center 20%;
+    display:block;
+  }
+  #f1{ z-index:3; opacity:1; }
+  #f2{ z-index:2; opacity:1; }
+  #f3-wrap{
+    z-index:4; opacity:0;
+    display:flex; align-items:center; justify-content:center;
+    padding: 0 6vw;
+  }
+  #f3-wrap img{
+    height:auto; width:min(640px, 95vw);
+    object-fit:contain;
+    filter: drop-shadow(0 0 22px rgba(0,0,0,0.85));
+  }
+
+  #f2 img{
+    transition: transform 4.5s ease-out;
+    transform: scale(1);
+  }
+  #f2.reveal-zoom img{
+    transform: scale(1.1);
+  }
+
+  #staticCanvas{
+    position:fixed; inset:0; width:100vw; height:100vh;
+    z-index:9998;
+    opacity:0; pointer-events:none;
+  }
+  .blackout{
+    position:fixed; inset:0; width:100vw; height:100vh;
+    z-index:9999;
+    background:#000; opacity:0; pointer-events:none;
+  }
+  .scan{
+    position:absolute; inset:0; z-index:57; pointer-events:none;
+    background:repeating-linear-gradient(
+      to bottom, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px,
+      transparent 2px, transparent 3px
+    );
+    opacity:0.5;
+  }
+
+  @keyframes flicker1{
+    0%{opacity:1;}
+    92%{opacity:1;}
+    93%{opacity:0.2;}
+    94%{opacity:0.9;}
+    95%{opacity:0.1;}
+    96%{opacity:1;}
+    100%{opacity:1;}
+  }
+  #f1.dying{ animation: flicker1 0.3s steps(1) forwards; }
+  #f1.gone{ opacity:0; transition:opacity .05s; }
+
+@keyframes staticBurst{
+    0%{opacity:0;}
+    10%{opacity:1;}
+    85%{opacity:1;}
+    100%{opacity:0;}
+}
+  #staticCanvas.burst{ animation: staticBurst 1.4s steps(6) forwards; }
+
+  @keyframes blackoutSeq{
+    0%{opacity:0;}
+    20%{opacity:1;}
+    58%{opacity:1;}
+    100%{opacity:0;}
+  }
+  .blackout.seq{ animation: blackoutSeq 0.7s ease-in-out forwards; }
+
+  @keyframes titleFlicker{
+    0%{opacity:0;}
+    8%{opacity:0.8;}
+    10%{opacity:0.1;}
+    14%{opacity:0.9;}
+    18%{opacity:0.15;}
+    24%{opacity:1;}
+    30%{opacity:0.4;}
+    36%{opacity:1;}
+    100%{opacity:1;}
+  }
+  #f3-wrap.in{ animation: titleFlicker 0.95s steps(1) forwards; }
+
+  .tape-edge{
+    position:absolute; left:0; right:0; height:26px;
+    background: repeating-linear-gradient(45deg, var(--tape) 0 18px, #171412 18px 36px);
+    z-index:15; opacity:0.92;
+  }
+  .tape-edge.top{ top:0; }
+  .tape-edge.bottom{ bottom:0; }
+
+  .scrollcue{
+    position:absolute; left:50%; bottom:max(10vh, calc(env(safe-area-inset-bottom) + 40px));
+    transform:translateX(-50%);
+    z-index:20; opacity:0;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    padding:12px 22px 16px;
+    background:rgba(10,9,8,0.5);
+    backdrop-filter:blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+    border:1px solid rgba(227,194,60,0.4);
+    border-radius:999px;
+    color:var(--parchment);
+    font-family:"Special Elite",monospace;
+    font-size:13px; font-weight:700; letter-spacing:0.28em;
+    text-shadow:0 1px 6px rgba(0,0,0,0.9);
+    transition:opacity 0.8s ease 0.2s;
+    text-align: center;
+    pointer-events:none;
+  }
+  .scrollcue.show{ opacity:1; }
+
+  .scrollcue .arrow {
+    font-family:"Noto Sans JP", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--tape);
+    text-shadow:0 0 10px rgba(227,194,60,0.75), 0 2px 5px rgba(0,0,0,0.9);
+    animation: bounce 1.4s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(7px); }
+  }
+
+  /* ---------- CASE FILE SECTION ---------- */
+  .case{
+    position:relative;
+    background:var(--void-2);
+    padding: 90px 6vw 120px;
+  }
+  .case::before{
+    content:"";
+    position:absolute; inset:0 0 auto 0; height:80px;
+    background:linear-gradient(to bottom, var(--void), transparent);
+    pointer-events:none;
+    z-index:1;
+  }
+  .case::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("site.webp");
+    background-size:cover;
+    background-position:center 12%;
+    filter:grayscale(1) contrast(1.05);
+    opacity:0.06;
+    pointer-events:none;
+    z-index:0;
+  }
+  .case > *{ position:relative; z-index:1; }
+  .eyebrow{
+    font-family:"Special Elite",monospace;
+    color:var(--tape);
+    font-size:12px;
+    letter-spacing:0.4em;
+    display:inline-flex; align-items:center; gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:""; width:26px; height:1px; background:var(--tape);
+  }
+  .case h2{
+    font-family:"Shippori Mincho",serif;
+    font-weight:800;
+    font-size:clamp(25px, 4.4vw, 44px);
+    line-height:1.4;
+    max-width:820px;
+    margin-bottom:14px;
+  }
+  .case .lede{
+    font-family:"Noto Sans JP",sans-serif;
+    color:var(--parchment-dim);
+    max-width:640px;
+    font-size:14.5px;
+    line-height:2;
+    margin-bottom:64px;
+  }
+  .case .lede b{ color:var(--parchment); font-weight:700; }
+
+  .files{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+    gap:28px 28px;
+    row-gap:56px;
+    max-width:980px;
+  }
+  .file{
+    position:relative;
+    background:var(--parchment);
+    color:#1b1712;
+    padding:34px 30px 30px;
+    box-shadow:0 20px 50px -18px rgba(0,0,0,0.7);
+    transform:rotate(var(--rot,0deg));
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .file:nth-child(1){ --rot:-0.6deg; }
+  .file:nth-child(2){ --rot:0.5deg; }
+  .file:hover,
+  .file:active{
+    transform: rotate(var(--rot,0deg)) scale(1.03) translateY(-3px);
+    box-shadow:0 26px 54px -18px rgba(0,0,0,0.75);
+    z-index:2;
+  }
+  .file::before{
+    content:attr(data-no);
+    position:absolute; top:-14px; left:26px;
+    background:var(--blood);
+    color:var(--parchment);
+    font-family:"Special Elite",monospace;
+    font-size:11px; letter-spacing:0.2em;
+    padding:5px 12px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.5);
+  }
+
+  .file .stamp{
+    position:absolute; top:22px; right:34px;
+    width:72px; height:72px;
+  }
+  .file .stamp img{
+    width:150%; height:150%;
+    object-fit:contain;
+    display:block;
+  }
+
+  .file h3{
+    font-family:"Shippori Mincho",serif;
+    font-weight:700;
+    font-size:19px;
+    line-height:1.55;
+    max-width:76%;
+    margin-bottom:16px;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  .file .room{
+    font-family:"Special Elite",monospace;
+    font-size:13px;
+    letter-spacing:0.05em;
+    color:var(--blood);
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:20px;
+    padding-bottom:16px;
+    border-bottom:1px dashed rgba(0,0,0,0.25);
+  }
+  .room .pin{ width:7px; height:7px; background:var(--blood); border-radius:50%; flex:none;}
+
+  .times{
+    display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .times .t{
+    font-family:"Special Elite",monospace;
+    font-size:12.5px;
+    background:#1b1712;
+    color:var(--parchment);
+    padding:7px 12px;
+    position:relative;
+  }
+  .times .t::before, .times .t::after{
+    content:""; position:absolute; width:8px; height:8px;
+    background:var(--parchment); border-radius:50%;
+    top:50%; transform:translateY(-50%);
+  }
+  .times .t::before{ left:-4px; }
+  .times .t::after{ right:-4px; }
+
+  /* tape divider　border */
+  .divider{
+    height:22px; margin:70px 0 46px;
+    max-width:980px;
+    background:repeating-linear-gradient(45deg, var(--tape) 0 16px, #171412 16px 32px);
+    opacity:0.85;
+    position:relative;
+  }
+  .divider span{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    background:var(--void-2);
+    color:var(--tape);
+    font-family:"Special Elite",monospace;
+    font-size:11px; letter-spacing:0.3em;
+    padding:2px 14px;
+  }
+
+  .rally{
+    max-width:640px;
+  }
+  .rally .eyebrow-mini{
+    font-family:"Special Elite",monospace;
+    color:var(--tape);
+    font-size:11px;
+    letter-spacing:0.35em;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:10px;
+  }
+  .rally .eyebrow-mini::before{
+    content:""; width:18px; height:1px; background:var(--tape);
+  }
+  .rally h4{
+    font-family:"Shippori Mincho",serif;
+    font-size:22px;
+    margin-bottom:16px;
+  }
+  .rally ul{
+    list-style:none;
+  }
+  .rally li{
+    font-size:14.5px;
+    line-height:2;
+    color:var(--parchment-dim);
+    padding-left:22px;
+    position:relative;
+    margin-bottom:6px;
+  }
+  .rally li::before{
+    content:"×";
+    position:absolute; left:0; top:2px;
+    color:var(--blood-bright);
+    font-family:"Special Elite",monospace;
+  }
+  .rally .prize{
+    margin-top:24px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--tape);
+    border:1px solid var(--tape);
+    color:#1b1712;
+    font-family:"Special Elite",monospace;
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:0.06em;
+    padding:14px 24px;
+    box-shadow:0 12px 26px -12px rgba(227,194,60,0.55);
+  }
+  .rally .prize::before{
+    content:"★";
+    font-size:13px;
+    color:#1b1712;
+  }
+
+  /* ---------- STAMP RALLY MAP ---------- */
+  .mapblock{
+    max-width:680px;
+    margin-top:16px;
+  }
+  .mapblock .eyebrow-mini{
+    font-family:"Special Elite",monospace;
+    color:var(--tape);
+    font-size:11px;
+    letter-spacing:0.35em;
+    display:inline-flex; align-items:center; gap:8px;
+    margin-bottom:10px;
+  }
+  .mapblock .eyebrow-mini::before{
+    content:""; width:18px; height:1px; background:var(--tape);
+  }
+  .mapblock h4{
+    font-family:"Shippori Mincho",serif;
+    font-size:22px;
+    margin-bottom:8px;
+  }
+  .mapblock .maphint{
+    font-size:13.5px;
+    color:var(--parchment-dim);
+    line-height:1.9;
+    margin-bottom:22px;
+    max-width:520px;
+  }
+  .map-wrap{
+    position:relative;
+    max-width:640px;
+    border:1px solid rgba(227,194,60,0.5);
+    background:#000;
+    box-shadow:0 20px 50px -18px rgba(0,0,0,0.75);
+  }
+  .map-wrap::before{
+    content:"";
+    position:absolute; inset:0;
+    box-shadow: inset 0 0 40px 8px rgba(0,0,0,0.55);
+    pointer-events:none;
+    z-index:2;
+  }
+  .map-img{
+    width:100%;
+    display:block;
+    filter:saturate(0.85) contrast(1.05);
+  }
+  .map-pin{
+    position:absolute;
+    width:26px;
+    transform:translate(-50%,-92%);
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    z-index:3;
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,0.8));
+    animation: pinFloat 1.8s ease-in-out infinite;
+  }
+  .map-pin img{ width:100%; display:block; }
+  .map-pin:nth-child(2){ animation-delay:.1s; }
+  .map-pin:nth-child(3){ animation-delay:.35s; }
+  .map-pin:nth-child(4){ animation-delay:.6s; }
+  @keyframes pinFloat{
+    0%,100%{ transform:translate(-50%,-92%); }
+    50%{ transform:translate(-50%,-104%); }
+  }
+
+  .map-modal{
+    position:fixed; inset:0; z-index:9997;
+    background:rgba(6,5,4,0.86);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .map-modal.show{ display:flex; }
+  .map-modal-card{
+    position:relative;
+    background:var(--parchment);
+    color:#1b1712;
+    width:min(360px, 92vw);
+    padding:30px 26px 26px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.8);
+  }
+  .map-modal-card::before{
+    content:"CHECK POINT";
+    position:absolute; top:-14px; left:26px;
+    background:var(--blood);
+    color:var(--parchment);
+    font-family:"Special Elite",monospace;
+    font-size:11px; letter-spacing:0.2em;
+    padding:5px 12px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.5);
+  }
+  .map-modal-close{
+    position:absolute; top:10px; right:10px;
+    width:30px; height:30px;
+    border:none; background:transparent;
+    font-size:20px; line-height:1;
+    color:#1b1712; cursor:pointer;
+  }
+.map-modal-photo{
+    width:100%; aspect-ratio:4/3;
+    background-size:cover;
+    background-position:center;
+    margin-bottom:18px;
+}
+  .map-modal-card h3{
+    font-family:"Shippori Mincho",serif;
+    font-size:19px;
+    margin-bottom:10px;
+  }
+.map-modal-card p{
+    font-size:14px;
+    line-height:1.7; /* 1.9→1.7に少し詰める */
+    color:#3a352a;
+    white-space: pre-line;
+}
+  /* ---------- X SHARE BUTTON ---------- */
+  .x-share{
+    position:fixed;
+    right:20px;
+    bottom:max(20px, env(safe-area-inset-bottom));
+    z-index:60;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#000;
+    color:var(--parchment);
+    border:1px solid var(--tape);
+    border-radius:999px;
+    padding:12px 18px;
+    font-family:"Special Elite",monospace;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-decoration:none;
+    box-shadow:0 12px 26px -10px rgba(0,0,0,0.7);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .x-share:hover,
+  .x-share:active{
+    transform:translateY(-2px);
+    box-shadow:0 16px 30px -10px rgba(227,194,60,0.4);
+  }
+  .x-share svg{ width:16px; height:16px; fill:var(--parchment); flex:none; }
+.hp-link{
+    display:flex;
+    justify-content:center;
+    padding:36px 6vw 44px;
+    background:var(--void-2);
+  }
+.hp-link a{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--blood);
+    color:var(--parchment);
+    font-family:"Noto Sans JP",sans-serif;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-decoration:none;
+    padding:16px 36px;
+    border-radius:6px;
+    box-shadow:0 14px 30px -14px rgba(0,0,0,0.7);
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .hp-link a:hover,
+  .hp-link a:active{
+    background:var(--blood-bright);
+    transform:translateY(-2px);
+    box-shadow:0 18px 34px -14px rgba(0,0,0,0.75);
+  }
+  footer{
+    padding:40px 6vw 60px;
+    color:var(--ash);
+    font-size:11px;
+    letter-spacing:0.15em;
+    font-family:"Special Elite",monospace;
+    background:var(--void-2);
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width: 520px){
+    .files{ row-gap:64px; }
+    .file h3{ max-width:88%; font-size:17.5px; }
+    .file .stamp{ width:56px; height:56px; top:18px; right:26px; }
+    .x-share{ padding:11px 16px; font-size:12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="grain"></div>
+
+<section class="stage" id="stage">
+  <div class="tape-edge top"></div>
+
+  <div class="frame" id="f1"><img src="site.webp" alt="史学科×謎解き"></div>
+  <div class="frame" id="f2"><img src="site2.webp" alt="史学科×謎解き モノクロ"></div>
+  <div class="frame" id="f3-wrap"><img src="pop1.webp" alt="マリー・アントワネットの「真実」にたどり着け"></div>
+
+  <canvas id="staticCanvas"></canvas>
+  <div class="blackout" id="blackout"></div>
+  <div class="scan"></div>
+
+  <div class="tape-edge bottom"></div>
+
+ <div class="scrollcue" id="scrollcue">
+    <span>SCROLL</span>
+    <div class="arrow">∨</div>
+  </div>
+</section>
+
+<section class="case">
+  <p class="eyebrow">CASE FILE : antoinette</p>
+  <h2>「捜査官」として、<br>史学科の教室に散らばる<br>手がかりを追え。</h2>
+  <p class="lede">
+    教室に現れた謎の肖像画と赤い糸。<br>
+    知られてはいけない数々の証拠。<br>
+    マリー・アントワネットの「真実」が<br>
+    あなたを待っている。<br>
+    3302教室に向かい、手がかりを集めよ。
+  </p>
+
+  <div class="files">
+    <article class="file" data-no="FILE — 01">
+      <div class="stamp">
+        <img src="stamp1.webp" alt="SPECIAL企画スタンプ">
+      </div>
+      <h3>史学科事務室監修　特別企画<br>「史学科捜査ツアー」</h3>
+      <p class="room"><span class="pin"></span>3号館 3302教室</p>
+      <div class="times">
+        <span class="t">11:00 – 16:00</span>
+      </div>
+    </article>
+
+    <article class="file" data-no="FILE — 02">
+      <div class="stamp">
+        <img src="stamp2.webp" alt="学科説明・模擬授業スタンプ">
+      </div>
+      <h3>学科説明・模擬授業　<br>古川隆久先生<br>「戦時下日本のハワイ音楽から<br>歴史を読み解く」</h3>
+      <p class="room"><span class="pin"></span>3号館 3305教室</p>
+      <div class="times">
+        <span class="t">11:00 – 11:40</span>
+        <span class="t">12:20 – 13:00</span>
+        <span class="t">13:40 – 14:20</span>
+      </div>
+    </article>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="rally">
+    <p class="eyebrow-mini">SIDE MISSION1</p>
+    <h4>資料館潜入捜査</h4>
+    <ul>
+      <li>来館者に扮して、資料館に潜入</li>
+      <li>展示物に隠された謎を解明しよう</li>
+    </ul>
+  </div>
+  <div class="rally">
+    <p class="eyebrow-mini">SIDE MISSION2</p>
+    <h4>スタンプラリー開催</h4>
+    <ul>
+      <li>史学科主要３カ所を巡るスタンプラリーを実施</li>
+      <li>すべてのスタンプを集めて捜査を完了させよう</li>
+    </ul>
+    <span class="prize">スタンプラリー完走者に<br>オリジナルグッズをプレゼント</span>
+  </div>
+
+  <div class="mapblock">
+    <p class="eyebrow-mini">STAMP RALLY MAP</p>
+    <h4>スタンプラリー捜査ポイント</h4>
+    <p class="maphint">地図上のピンをタップで、各ポイントの詳細が表示</p>
+    <div class="map-wrap">
+      <img src="map.webp" alt="キャンパス案内図" class="map-img">
+     <button class="map-pin" style="left:70.7%; top:80.3%;" 
+  data-name="学芸員課程研究室≪1号館≫" 
+  data-desc="学芸員になるための勉強を行う場所
+オープンキャンパスでは、掛け軸等の学芸員のお仕事体験を実施中" 
+  data-photo="gakugei.webp"
+  aria-label="ポイント1 詳細を見る">
+  <img src="pin.png" alt="">
+</button>
+
+<button class="map-pin" style="left:32.5%; top:63.1%;" 
+  data-name="資料館《図書館棟》" 
+  data-desc="文理学部がもっている資料を文理学部の先生達が企画し、展示している場所
+オープンキャンパスでも謎解きツアーや展示を開催中" 
+  data-photo="museum.webp"
+  aria-label="ポイント2 詳細を見る">
+  <img src="pin.png" alt="">
+</button>
+
+<button class="map-pin" style="left:52.0%; top:40.7%;" 
+  data-name="史学科展示コーナー《3号館》" 
+  data-desc="スタンプラリーのノベルティ受付場所
+謎解きに参加したり、本物の史料展示がみれる
+  学生や先生達と直接話せるよ" 
+  data-photo="shigakuka.webp"
+  aria-label="ポイント3 詳細を見る">
+  <img src="pin.png" alt="">
+</button>
+    </div>
+  </div>
+</section>
+  <div class="hp-link">
+  <a id="hpLinkBtn" href="https://dept.chs.nihon-u.ac.jp/history/" target="_blank" rel="noopener noreferrer">史学科HP</a>
+</div>
+
+<footer>
+  史学科 × 謎解き — 史学科事務室監修
+</footer>
+
+<a class="x-share" id="xShareBtn" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-7.2 8.3L23.3 22h-6.6l-5.2-6.8L5.4 22H2.2l7.7-8.9L1 2h6.8l4.7 6.2L18.9 2Zm-1.2 18h1.8L7.4 4H5.5l12.2 16Z"/></svg>
+  <span>Xでシェア</span>
+</a>
+
+<div class="map-modal" id="mapModal">
+  <div class="map-modal-card">
+    <button class="map-modal-close" id="mapModalClose" aria-label="閉じる">×</button>
+<div class="map-modal-photo" id="mapModalPhoto"></div>
+    <h3 id="mapModalName">仮</h3>
+    <p id="mapModalDesc">仮</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  if('scrollRestoration' in history){
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  const f1 = document.getElementById('f1');
+  const f2 = document.getElementById('f2');
+  const f3 = document.getElementById('f3-wrap');
+  const canvas = document.getElementById('staticCanvas');
+  const blackout = document.getElementById('blackout');
+  const scrollcue = document.getElementById('scrollcue');
+  const ctx = canvas.getContext('2d');
+
+  function sizeCanvas(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(window.innerWidth * dpr);
+    canvas.height = Math.floor(window.innerHeight * dpr);
+    imgData = ctx.createImageData(canvas.width, canvas.height);
+    buf = imgData.data;
+  }
+  let imgData, buf;
+  sizeCanvas();
+  window.addEventListener('resize', sizeCanvas);
+
+  function drawStatic(){
+    const w = canvas.width, h = canvas.height;
+    for(let i = 0; i < buf.length; i += 4){
+      const v = (Math.random() * 255) | 0;
+      buf[i] = v; buf[i+1] = v; buf[i+2] = v; buf[i+3] = 255;
+    }
+    ctx.putImageData(imgData, 0, 0);
+
+    const bars = 5 + Math.floor(Math.random()*6);
+    for(let b=0; b<bars; b++){
+      const y = Math.random() * h;
+      const barH = 2 + Math.random() * 18;
+      const shift = (Math.random()-0.5) * 60;
+      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(180,20,30,0.35)' : 'rgba(220,190,60,0.25)';
+      ctx.fillRect(shift, y, w, barH);
+    }
+  }
+
+  let noiseTimer = null;
+  function startNoise(){
+    if(noiseTimer) return;
+    noiseTimer = setInterval(drawStatic, 55);
+  }
+  function stopNoise(){
+    clearInterval(noiseTimer);
+    noiseTimer = null;
+  }
+
+  function lockScroll(lock){
+    document.body.classList.toggle('locked', lock);
+  }
+
+  function preventIfLocked(e){
+    if(document.body.classList.contains('locked')) e.preventDefault();
+  }
+  window.addEventListener('wheel', preventIfLocked, {passive:false});
+  window.addEventListener('touchmove', preventIfLocked, {passive:false});
+
+  function sequence(){
+    lockScroll(true);
+
+    setTimeout(()=>{ f1.classList.add('dying'); }, 1200);
+
+    setTimeout(()=>{
+      startNoise();
+      canvas.classList.add('burst');
+    }, 1400);
+
+    setTimeout(()=>{ f1.classList.remove('dying'); f1.classList.add('gone'); }, 1500);
+
+    setTimeout(()=>{
+      blackout.classList.add('seq');
+    }, 2450);
+
+    setTimeout(()=>{
+      stopNoise();
+      canvas.classList.remove('burst');
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }, 2800);
+
+    setTimeout(()=>{
+      f3.style.opacity = 1;
+      f3.classList.add('in');
+      f2.classList.add('reveal-zoom');
+    }, 3300);
+
+    setTimeout(()=>{
+      scrollcue.classList.add('show');
+      lockScroll(false);
+    }, 4400);
+  }
+
+  window.addEventListener('load', sequence);
+
+  // X (Twitter) share button
+  (function(){
+    const btn = document.getElementById('xShareBtn');
+    const pageUrl = "https://shigaku-bunri-nichidai.github.io/OCmysterytour/promote/promote.html";
+    const text = "#史学科捜査ツアー";
+
+    const intentUrl = "https://twitter.com/intent/tweet"
+      + "?text=" + encodeURIComponent(text)
+      + "&url=" + encodeURIComponent(pageUrl);
+
+   btn.href = intentUrl;
+
+    btn.addEventListener('click', ()=>{
+      if(typeof gtag === 'function'){
+        gtag('event', 'x_share_click');
+      }
+    });
+  })();
+  // 史学科HPボタン計測
+  (function(){
+    const hpBtn = document.getElementById('hpLinkBtn');
+    if(hpBtn){
+      hpBtn.addEventListener('click', ()=>{
+        if(typeof gtag === 'function'){
+          gtag('event', 'hp_link_click');
+        }
+      });
+    }
+  })();
+ 
+
+  // Stamp rally map pins
+  (function(){
+    const modal = document.getElementById('mapModal');
+    const closeBtn = document.getElementById('mapModalClose');
+    const nameEl = document.getElementById('mapModalName');
+    const descEl = document.getElementById('mapModalDesc');
+    const photoEl = document.getElementById('mapModalPhoto');
+    const pins = document.querySelectorAll('.map-pin');
+
+    function openModal(pin){
+      nameEl.textContent = pin.dataset.name || '';
+      descEl.textContent = pin.dataset.desc || '';
+      photoEl.style.backgroundImage = "url('" + pin.dataset.photo + "')";
+      modal.classList.add('show');
+    }
+    function closeModal(){
+      modal.classList.remove('show');
+    }
+
+   pins.forEach(pin=>{
+      pin.addEventListener('click', ()=>{
+        openModal(pin);
+        if(typeof gtag === 'function'){
+          gtag('event', 'pin_click', { pin_name: pin.dataset.name });
+        }
+      });
+    });
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeModal();
+    });
+  })();
+})();
+</script>
+
+</body>
+</html>
