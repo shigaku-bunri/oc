@@ -1,0 +1,198 @@
+<svg viewBox="0 0 1200 980" xmlns="http://www.w3.org/2000/svg" font-family="'Hiragino Sans','Yu Gothic',sans-serif">
+
+  <rect x="0" y="0" width="1200" height="980" fill="#F6F2EA"/>
+
+  <!-- ============ 緑地・植栽（背面）============ -->
+  <g fill="#8FAE86">
+    <circle cx="90" cy="180" r="60"/>
+    <circle cx="150" cy="140" r="46"/>
+    <circle cx="1000" cy="90" r="50"/>
+    <circle cx="1070" cy="150" r="70"/>
+    <circle cx="1130" cy="260" r="60"/>
+    <circle cx="1150" cy="420" r="55"/>
+    <circle cx="1140" cy="600" r="50"/>
+    <circle cx="1100" cy="850" r="60"/>
+    <circle cx="950" cy="900" r="45"/>
+    <circle cx="60" cy="380" r="40"/>
+    <circle cx="330" cy="360" r="30"/>
+    <circle cx="900" cy="200" r="26"/>
+  </g>
+  <g fill="#A5C299">
+    <circle cx="95" cy="175" r="34"/>
+    <circle cx="1005" cy="95" r="30"/>
+    <circle cx="1075" cy="145" r="42"/>
+    <circle cx="1135" cy="255" r="36"/>
+    <circle cx="1145" cy="415" r="32"/>
+    <circle cx="1105" cy="845" r="34"/>
+  </g>
+
+  <!-- ============ 通路・広場 ============ -->
+  <g fill="#E6DAC4">
+    <rect x="30" y="470" width="1130" height="60" rx="4"/>
+    <rect x="600" y="70" width="60" height="860" rx="4"/>
+    <rect x="30" y="820" width="1130" height="46" rx="4"/>
+    <rect x="560" y="70" width="150" height="90" rx="4"/>
+  </g>
+
+  <!-- 池 -->
+  <ellipse cx="345" cy="500" rx="26" ry="16" fill="#AFCBDB"/>
+  <ellipse cx="705" cy="760" rx="20" ry="13" fill="#AFCBDB"/>
+  <ellipse cx="750" cy="775" rx="16" ry="11" fill="#AFCBDB"/>
+
+  <!-- ============ 建物 ============ -->
+
+  <!-- 総合体育館 -->
+  <rect x="55" y="700" width="290" height="150" rx="6" fill="#4F7A66" stroke="#2C4A3D" stroke-width="2"/>
+  <rect x="55" y="700" width="290" height="20" fill="#3E6354"/>
+
+  <!-- サークル棟I -->
+  <rect x="40" y="565" width="290" height="80" rx="6" fill="#8B6E93" stroke="#5D4964" stroke-width="2"/>
+
+  <!-- 図書館 -->
+  <rect x="165" y="420" width="215" height="120" rx="6" fill="#C7A465" stroke="#8F6F3C" stroke-width="2"/>
+
+  <!-- 資料館 -->
+  <rect x="245" y="540" width="200" height="70" rx="6" fill="#D6B87E" stroke="#8F6F3C" stroke-width="2"/>
+
+  <!-- 2号館 -->
+  <rect x="480" y="545" width="120" height="230" rx="6" fill="#C1662F" stroke="#7E3E17" stroke-width="2"/>
+  <line x1="516" y1="545" x2="516" y2="775" stroke="#7E3E17" stroke-width="1.5"/>
+  <line x1="552" y1="545" x2="552" y2="775" stroke="#7E3E17" stroke-width="1.5"/>
+
+  <!-- 1号館 -->
+  <rect x="640" y="610" width="220" height="200" rx="6" fill="#5B7D9A" stroke="#33495D" stroke-width="2"/>
+
+  <!-- 3号館 -->
+  <rect x="480" y="230" width="255" height="220" rx="6" fill="#4B8E8E" stroke="#295656" stroke-width="2"/>
+
+  <!-- サークル棟II -->
+  <rect x="405" y="90" width="185" height="90" rx="6" fill="#8B6E93" stroke="#5D4964" stroke-width="2"/>
+
+  <!-- 4号館 -->
+  <rect x="595" y="60" width="235" height="130" rx="6" fill="#3F5D6E" stroke="#233642" stroke-width="2"/>
+
+  <!-- 本館 -->
+  <rect x="880" y="330" width="230" height="460" rx="6" fill="#2F4858" stroke="#182732" stroke-width="2"/>
+  <g stroke="#4C6779" stroke-width="1.5">
+    <line x1="880" y1="400" x2="1110" y2="400"/>
+    <line x1="880" y1="470" x2="1110" y2="470"/>
+    <line x1="880" y1="540" x2="1110" y2="540"/>
+    <line x1="880" y1="610" x2="1110" y2="610"/>
+    <line x1="880" y1="680" x2="1110" y2="680"/>
+  </g>
+
+  <!-- 7号館 -->
+  <rect x="1030" y="620" width="150" height="180" rx="6" fill="#5B7D9A" stroke="#33495D" stroke-width="2"/>
+
+  <!-- 正門 -->
+  <rect x="590" y="890" width="80" height="26" rx="4" fill="#9C4A3B" stroke="#6B2F24" stroke-width="2"/>
+  <text x="630" y="908" text-anchor="middle" font-size="14" font-weight="700" fill="#FBEAE6">正門</text>
+
+  <!-- ============ アイコン（3号館内） ============ -->
+  <g fill="#FBEAE6">
+    <circle cx="700" cy="270" r="15"/>
+    <path d="M694 264 v14 M700 264 v14 M706 264 v14" stroke="#295656" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="700" cy="320" r="15"/>
+    <path d="M693 314 h14 M700 313 v14 M693 326 h14" stroke="#295656" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="700" cy="370" r="15"/>
+    <circle cx="700" cy="370" r="8" fill="none" stroke="#295656" stroke-width="2"/>
+    <circle cx="565" cy="380" r="15"/>
+    <rect x="559" y="373" width="12" height="15" fill="none" stroke="#295656" stroke-width="2"/>
+    <circle cx="565" cy="420" r="15"/>
+    <rect x="558" y="414" width="14" height="12" rx="1" fill="none" stroke="#295656" stroke-width="2"/>
+  </g>
+
+  <!-- 2号館アイコン（ロッカー） -->
+  <circle cx="540" cy="600" r="15" fill="#FBEAE6"/>
+  <rect x="533" y="593" width="14" height="14" rx="2" fill="none" stroke="#7E3E17" stroke-width="2"/>
+
+  <!-- ============ 駅方向 ============ -->
+  <path d="M170 900 h-90 m0 0 l16 -12 m-16 12 l16 12" stroke="#5F5E5A" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="928" text-anchor="middle" font-size="16" font-weight="500" fill="#3A3936">下高井戸駅</text>
+
+  <!-- ============ ラベル（建物名） ============ -->
+  <g font-weight="700" text-anchor="middle">
+    <g>
+      <rect x="55" y="778" width="290" height="34" rx="17" fill="#2C4A3D"/>
+      <text x="200" y="800" font-size="19" fill="#EAF1E9">総合体育館</text>
+    </g>
+    <g>
+      <rect x="40" y="600" width="150" height="30" rx="15" fill="#5D4964"/>
+      <text x="115" y="620" font-size="17" fill="#F3EAF5">サークル棟Ⅰ</text>
+    </g>
+    <g>
+      <rect x="170" y="460" width="150" height="32" rx="16" fill="#8F6F3C"/>
+      <text x="245" y="482" font-size="18" fill="#FBF4E7">図書館</text>
+    </g>
+    <g>
+      <rect x="260" y="580" width="150" height="30" rx="15" fill="#8F6F3C"/>
+      <text x="335" y="600" font-size="17" fill="#FBF4E7">資料館</text>
+    </g>
+    <g>
+      <rect x="482" y="640" width="110" height="32" rx="16" fill="#7E3E17"/>
+      <text x="537" y="662" font-size="18" fill="#FAE9E0">2号館</text>
+    </g>
+    <g>
+      <rect x="655" y="690" width="150" height="34" rx="17" fill="#33495D"/>
+      <text x="730" y="713" font-size="19" fill="#E8EEF3">1号館</text>
+    </g>
+    <g>
+      <rect x="520" y="330" width="150" height="34" rx="17" fill="#295656"/>
+      <text x="595" y="353" font-size="19" fill="#E7F1F0">3号館</text>
+    </g>
+    <g>
+      <rect x="400" y="60" width="190" height="30" rx="15" fill="#5D4964"/>
+      <text x="495" y="80" font-size="17" fill="#F3EAF5">サークル棟Ⅱ</text>
+    </g>
+    <g>
+      <rect x="632" y="115" width="150" height="34" rx="17" fill="#233642"/>
+      <text x="707" y="138" font-size="19" fill="#E7EEF2">4号館</text>
+    </g>
+    <g>
+      <rect x="920" y="500" width="150" height="36" rx="18" fill="#182732"/>
+      <text x="995" y="524" font-size="20" fill="#EAF0F4">本館</text>
+    </g>
+    <g>
+      <rect x="1015" y="655" width="150" height="32" rx="16" fill="#33495D"/>
+      <text x="1090" y="677" font-size="18" fill="#E8EEF3">7号館</text>
+    </g>
+  </g>
+
+  <!-- ============ 凡例 ============ -->
+  <g font-size="13" fill="#3A3936">
+    <rect x="900" y="820" width="270" height="130" rx="8" fill="#FDFBF6" stroke="#D8D2C2" stroke-width="1.5"/>
+    <text x="916" y="840" font-weight="700" font-size="14">凡例</text>
+
+    <circle cx="924" cy="858" r="8" fill="#4B8E8E"/>
+    <path d="M921 855 v6 M924 855 v6 M927 855 v6" stroke="#FBEAE6" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="938" y="862">食堂</text>
+
+    <circle cx="924" cy="880" r="8" fill="#4B8E8E"/>
+    <path d="M920 877 h8 M924 876 v8 M920 883 h8" stroke="#FBEAE6" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <text x="938" y="884">カフェ</text>
+
+    <circle cx="924" cy="902" r="8" fill="#4B8E8E"/>
+    <circle cx="924" cy="902" r="4" fill="none" stroke="#FBEAE6" stroke-width="1.5"/>
+    <text x="938" y="906">国際交流</text>
+
+    <circle cx="1020" cy="858" r="8" fill="#295656"/>
+    <rect x="1016" y="854" width="8" height="9" fill="none" stroke="#FBEAE6" stroke-width="1.5"/>
+    <text x="1034" y="862">銀行・ATM</text>
+
+    <circle cx="1020" cy="880" r="8" fill="#295656"/>
+    <rect x="1015" y="876" width="10" height="8" rx="1" fill="none" stroke="#FBEAE6" stroke-width="1.5"/>
+    <text x="1034" y="884">売店</text>
+
+    <circle cx="1020" cy="902" r="8" fill="#7E3E17"/>
+    <rect x="1015" y="898" width="10" height="9" rx="1" fill="none" stroke="#FBEAE6" stroke-width="1.5"/>
+    <text x="1034" y="906">ロッカー</text>
+  </g>
+
+  <!-- 方位 -->
+  <g transform="translate(1140,60)">
+    <circle cx="0" cy="0" r="26" fill="#FDFBF6" stroke="#D8D2C2" stroke-width="1.5"/>
+    <path d="M0 -18 L6 0 L0 6 L-6 0 Z" fill="#3A3936"/>
+    <text x="0" y="-24" text-anchor="middle" font-size="12" font-weight="700" fill="#3A3936">N</text>
+  </g>
+
+</svg>
